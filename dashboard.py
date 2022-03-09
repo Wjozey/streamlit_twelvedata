@@ -7,7 +7,7 @@ import plotly.express as px
 
 api_key = config.twelve_api
 
-st.title('Financial Dashboard')
+st.title('Finance Chart')
 st.write('---')
 
 tickers = ('AAPL', 'TSLA', 'GOOGL')
@@ -40,8 +40,7 @@ fig.update_layout(
     width=800,
     height=500,
     margin=dict(l=1,r=1,b=1,t=1),
-    font=dict(color='#32a8a4', size=15),
-    # paper_bgcolor=""
+    font=dict(color='#32a8a4', size=15)
 )
 fig.update_xaxes(rangeslider_visible=True)
 st.write(fig)
