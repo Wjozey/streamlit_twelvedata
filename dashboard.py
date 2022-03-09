@@ -18,11 +18,14 @@ symbol = st.sidebar.selectbox("Pick your assets", tickers )
 start_date = st.sidebar.date_input("Start Date", value=pd.to_datetime("2021-01-31", format="%Y-%m-%d"))
 end_date = st.sidebar.date_input("End Date", value=pd.to_datetime("today", format="%Y-%m-%d"))
 
-    
-r = requests.get(f"https://api.twelvedata.com/time_series?&start_date={start_date}&end_date={end_date}&symbol={symbol}&interval=1day&apikey={api_key}")
+@st.experimental_memo
+def load_api(link):
+    r = requests.get(link)
+    data = r.json()
+    df = pd.DataFrame(data['values'])
+    return df
 
-data = r.json()
-df = pd.DataFrame(data['values'])
+load_api(f"https://api.twelvedata.com/time_series?&start_date={start_date}&end_date={end_date}&symbol={symbol}&interval=1day&apikey={api_key}")
 st.write(df)
 
 st.write('---')
