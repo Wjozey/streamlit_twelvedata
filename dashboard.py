@@ -5,7 +5,9 @@ import requests
 import config
 import plotly.express as px
 
-api_key = config.twelve_api
+# api_key = config.twelve_api
+api_key = st.secrets["API_URL"]
+
 
 st.title('Finance Chart')
 st.write('---')
