@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
-import config
+# import config
 import plotly.express as px
 
 # api_key = config.twelve_api
