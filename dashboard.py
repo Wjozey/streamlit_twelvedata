@@ -5,8 +5,9 @@ import requests
 # import config
 import plotly.express as px
 
+
 # api_key = config.twelve_api
-api_key = st.secrets["API_URL"]
+api_key = st.secrets["twelve_api"]
 
 
 st.title('Finance Chart')
@@ -15,17 +16,16 @@ st.write('---')
 tickers = ('AAPL', 'TSLA', 'GOOGL')
 symbol = st.sidebar.selectbox("Pick your assets", tickers )
 
-start_date = st.sidebar.date_input("Start Date", value=pd.to_datetime("2021-01-31", format="%Y-%m-%d"))
+start_date = st.sidebar.date_input("Start Date", value=pd.to_datetime("2022-01-31", format="%Y-%m-%d"))
 end_date = st.sidebar.date_input("End Date", value=pd.to_datetime("today", format="%Y-%m-%d"))
 
-@st.experimental_memo
-def load_api(link):
-    r = requests.get(link)
-    data = r.json()
-    df = pd.DataFrame(data['values'])
-    return df
 
-load_api(f"https://api.twelvedata.com/time_series?&start_date={start_date}&end_date={end_date}&symbol={symbol}&interval=1day&apikey={api_key}")
+
+    
+r = requests.get(f"https://api.twelvedata.com/time_series?&start_date={start_date}&end_date={end_date}&symbol={symbol}&interval=1day&apikey={api_key}")
+data = r.json()
+
+df = pd.DataFrame(data['values'])
 st.write(df)
 
 st.write('---')
